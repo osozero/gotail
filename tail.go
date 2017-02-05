@@ -4,8 +4,10 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
+	"time"
 )
 
 var f = flag.String("f", "", "file path to read")
@@ -41,7 +43,11 @@ func main() {
 	for {
 		line, err := reader.ReadString('\n')
 		if err != nil {
-			break
+			if err == io.EOF {
+				time.Sleep(1 * time.Second)
+			} else {
+				break
+			}
 		}
 
 		fmt.Println(line)
