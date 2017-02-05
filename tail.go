@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-var file = flag.String("f", "", "file path to read")
+var f = flag.String("f", "", "file path to read")
 
 var usage = `Usage: tail -f "file_path_to_read"
 `
@@ -24,12 +24,12 @@ func main() {
 	}
 
 	flag.Parse()
-	if *file == "" {
+	if *f == "" {
 		log.Println("file path parameter must be given")
 		usageAndExit()
 	}
 
-	file, err := os.Open("file.log")
+	file, err := os.Open(*f)
 	if err != nil {
 		log.Fatal(err)
 	}
